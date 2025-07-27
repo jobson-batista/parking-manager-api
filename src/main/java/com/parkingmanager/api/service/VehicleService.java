@@ -1,6 +1,5 @@
 package com.parkingmanager.api.service;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.parkingmanager.api.dto.VehicleDTO;
 import com.parkingmanager.api.exception.VehicleNotFoundException;
 import com.parkingmanager.api.exception.VehicleNotSavedException;
@@ -10,7 +9,6 @@ import com.parkingmanager.api.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VehicleService {
