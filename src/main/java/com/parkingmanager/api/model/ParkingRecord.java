@@ -17,8 +17,8 @@ public class ParkingRecord {
     private Vehicle vehicle;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "parking_lot_id")
-    private ParkingLot parkingLot;
+    @JoinColumn(name = "parking_id")
+    private Parking parking;
 
     private LocalDateTime entryAt;
 
