@@ -2,11 +2,17 @@ package com.parkingmanager.api.model;
 
 import com.parkingmanager.api.enums.VehicleType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Vehicle {
 
     @Id
