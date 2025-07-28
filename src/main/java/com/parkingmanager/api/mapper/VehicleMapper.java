@@ -3,7 +3,6 @@ package com.parkingmanager.api.mapper;
 import com.parkingmanager.api.dto.VehicleDTO;
 import com.parkingmanager.api.model.Vehicle;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 

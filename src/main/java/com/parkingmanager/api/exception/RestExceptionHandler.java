@@ -41,4 +41,30 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ParkingInvalidException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessage> parkingNotSavedException(ParkingInvalidException exception, WebRequest request) {
+        exception.printStackTrace();
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                request.getDescription(false),
+                exception.getMessage(),
+                exception.getDescription()
+        );
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ParkingNotFound.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorMessage> parkingNotFoundException(ParkingNotFound exception, WebRequest request) {
+        exception.printStackTrace();
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                request.getDescription(false),
+                exception.getMessage(),
+                exception.getDescription()
+        );
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
 }

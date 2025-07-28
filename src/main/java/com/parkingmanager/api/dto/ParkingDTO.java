@@ -1,42 +1,35 @@
-package com.parkingmanager.api.model;
+package com.parkingmanager.api.dto;
 
+import com.parkingmanager.api.model.Address;
+import com.parkingmanager.api.model.ParkingRecord;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Parking {
+@ToString
+public class ParkingDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String phone;
-
-    @Column(nullable = false)
     private String cnpj;
 
-    @Column(nullable = false)
+    private String phone;
+
     private Integer motorcycleVacancies;
 
-    @Column(nullable = false)
     private Integer carVacancies;
 
-    @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParkingRecord> records = new ArrayList<>();
 
-    @Embedded
     private Address address;
-
 }
