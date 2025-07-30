@@ -2,8 +2,8 @@ package com.parkingmanager.api.service;
 
 import com.parkingmanager.api.dto.VehicleDTO;
 import com.parkingmanager.api.enums.VehicleType;
-import com.parkingmanager.api.exception.VehicleNotFoundException;
-import com.parkingmanager.api.exception.VehicleNotSavedException;
+import com.parkingmanager.api.exception.BadRequestException;
+import com.parkingmanager.api.exception.NotFoundException;
 import com.parkingmanager.api.mapper.VehicleMapper;
 import com.parkingmanager.api.model.Vehicle;
 import com.parkingmanager.api.repository.VehicleRepository;
@@ -69,7 +69,7 @@ class VehicleServiceTest {
         when(vehicleMapper.toEntity(dto)).thenThrow(new RuntimeException("Simulated error"));
 
         // Act + Assert
-        assertThrows(VehicleNotSavedException.class, () -> vehicleService.saveVehicle(dto));
+        assertThrows(BadRequestException.class, () -> vehicleService.saveVehicle(dto));
         verify(vehicleMapper).toEntity(dto);
         verify(vehicleRepository, never()).save(any());
     }
@@ -81,7 +81,7 @@ class VehicleServiceTest {
         Long id = null;
 
         // Act + Assert
-        assertThrows(VehicleNotFoundException.class, () -> vehicleService.deleteVehicleById(id));
+        assertThrows(NotFoundException.class, () -> vehicleService.deleteVehicleById(id));
     }
 
     @Test

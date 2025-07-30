@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Stats {
 
     private String nameParking;
-    private Integer carVacanciesAvailable;
-    private Integer motorVacanciesAvailable;
+    private Integer entryQuantity;
+    private Integer exitQuantity;
 }

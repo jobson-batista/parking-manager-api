@@ -1,49 +1,63 @@
 package com.parkingmanager.api.service;
 
 import com.parkingmanager.api.dto.ParkingDTO;
+import com.parkingmanager.api.exception.BadRequestException;
+import com.parkingmanager.api.exception.NotFoundException;
 import com.parkingmanager.api.exception.ParkingInvalidException;
-import com.parkingmanager.api.exception.ParkingNotFound;
 import com.parkingmanager.api.mapper.ParkingMapper;
+import com.parkingmanager.api.mapper.ParkingRecordMapper;
 import com.parkingmanager.api.model.Parking;
+import com.parkingmanager.api.model.ParkingRecord;
 import com.parkingmanager.api.model.Stats;
+import com.parkingmanager.api.repository.ParkingRecordRepository;
 import com.parkingmanager.api.repository.ParkingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParkingService {
 
     private final ParkingRepository parkingRepository;
     private final ParkingMapper parkingMapper;
+    private final ParkingRecordRepository parkingRecordRepository;
+    private final ParkingRecordMapper parkingRecordMapper;
 
     ParkingService(
             ParkingRepository parkingRepository,
-            ParkingMapper parkingMapper
+            ParkingMapper parkingMapper,
+            ParkingRecordRepository parkingRecordRepository,
+            ParkingRecordMapper parkingRecordMapper
     ) {
         this.parkingRepository = parkingRepository;
         this.parkingMapper = parkingMapper;
+        this.parkingRecordRepository = parkingRecordRepository;
+        this.parkingRecordMapper = parkingRecordMapper;
     }
 
     public ParkingDTO saveParking(ParkingDTO parkingDTO) {
         validateParkingDTO(parkingDTO);
+        Optional<Parking> parkingExist = parkingRepository
+                .findParkingByNameAndCnpjAndDeletedFalse(parkingDTO.getName(), parkingDTO.getCnpj());
+        if(parkingExist.isPresent()) throw new BadRequestException("Parking already registered!");
         Parking parkingSaved = parkingRepository.save(parkingMapper.toEntity(parkingDTO));
         return parkingMapper.toDTO(parkingSaved);
     }
 
     public List<ParkingDTO> findAllParking() {
-        return parkingMapper.toDTOList(parkingRepository.findAll());
+        return parkingMapper.toDTOList(parkingRepository.findByDeletedFalse());
     }
 
     public ParkingDTO findParkingById(Long id) {
-        Parking parking = parkingRepository.findById(id)
-                .orElseThrow(() -> new ParkingNotFound(id));
+        Parking parking = parkingRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NotFoundException(String.valueOf(id)));
         return parkingMapper.toDTO(parking);
     }
 
     public ParkingDTO updateParkingById(Long id, ParkingDTO dto) {
-        Parking parking = parkingRepository.findById(id)
-                .orElseThrow(() -> new ParkingNotFound(id));
+        Parking parking = parkingRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NotFoundException(String.valueOf(id)));
 
         if (dto == null) {
             throw new ParkingInvalidException("DTO can not be null");
@@ -95,14 +109,28 @@ public class ParkingService {
     }
 
     public void deleteParkingById(Long id) {
-        parkingRepository.findById(id)
-                .orElseThrow(() -> new ParkingNotFound(id));
-        parkingRepository.deleteById(id);
+        Parking parking = parkingRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NotFoundException(String.valueOf(id)));
+        parking.setDeleted(true);
+        parkingRepository.save(parking);
     }
 
     public Stats getStatsByParking(Long id) {
-        // TODO
-        return new Stats("Parking Mock",10,9);
+        // TODO: Implement the functionality
+        int entryQuantity = 0;
+        int exitQuantity = 0;
+        Parking parking = new Parking();
+        List<ParkingRecord> records = parkingRecordRepository.findAllByDeletedFalseAndParking_Id(id);
+        if (records.isEmpty()) throw new NotFoundException("No registers for this Parking ID: " + id);
+        for(ParkingRecord rec: records) {
+            parking = rec.getParking();
+            if(rec.getEntryAt() != null && rec.getExitAt() == null) {
+                entryQuantity++;
+            } else {
+                exitQuantity++;
+            }
+        }
+        return new Stats(parking.getName(), entryQuantity, exitQuantity);
     }
 
     public void validateParkingDTO(ParkingDTO dto) {

@@ -2,12 +2,10 @@ package com.parkingmanager.api.controller;
 
 import com.parkingmanager.api.dto.VehicleDTO;
 import com.parkingmanager.api.service.VehicleService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController

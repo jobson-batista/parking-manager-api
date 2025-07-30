@@ -1,14 +1,15 @@
 package com.parkingmanager.api.service;
 
 import com.parkingmanager.api.dto.VehicleDTO;
-import com.parkingmanager.api.exception.VehicleNotFoundException;
-import com.parkingmanager.api.exception.VehicleNotSavedException;
+import com.parkingmanager.api.exception.BadRequestException;
+import com.parkingmanager.api.exception.NotFoundException;
 import com.parkingmanager.api.mapper.VehicleMapper;
 import com.parkingmanager.api.model.Vehicle;
 import com.parkingmanager.api.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehicleService {
@@ -25,28 +26,26 @@ public class VehicleService {
     }
 
     public VehicleDTO saveVehicle(VehicleDTO vehicleDTO) {
-        try {
-            Vehicle vehicleEntity = vehicleMapper.toEntity(vehicleDTO);
-            Vehicle vehicleSaved = vehicleRepository.save(vehicleEntity);
-            return vehicleMapper.toDTO(vehicleSaved);
-        } catch (Exception e) {
-            throw new VehicleNotSavedException(e);
-        }
+        Vehicle vehicleEntity = vehicleMapper.toEntity(vehicleDTO);
+        Optional<Vehicle> existingVehicle = vehicleRepository.findVehicleByNumberPlateAndDeletedFalse(vehicleDTO.getNumberPlate());
+        if (existingVehicle.isPresent()) throw new BadRequestException("There is already a vehicle with this plate number");
+        Vehicle vehicleSaved = vehicleRepository.save(vehicleEntity);
+        return vehicleMapper.toDTO(vehicleSaved);
     }
 
     public VehicleDTO listVehicleById(Long id) {
-        Vehicle existingVehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new VehicleNotFoundException("Vehicle not found with ID: " + id));
+        Vehicle existingVehicle = vehicleRepository.findVehicleByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NotFoundException("Vehicle not found with ID: " + id));
         return vehicleMapper.toDTO(existingVehicle);
     }
 
     public List<VehicleDTO> listVehicle() {
-        return vehicleMapper.toListVehicleDTO(vehicleRepository.findAll());
+        return vehicleMapper.toListVehicleDTO(vehicleRepository.findVehiclesByDeletedFalse());
     }
 
     public VehicleDTO updateVehicleById(Long id, VehicleDTO vehicleDTO) {
-        Vehicle existingVehicle = vehicleRepository.findById(id)
-                .orElseThrow(() -> new VehicleNotFoundException("Vehicle not found with ID: " + id));
+        Vehicle existingVehicle = vehicleRepository.findVehicleByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NotFoundException("Vehicle not found with ID: " + id));
 
         existingVehicle.setBrand(vehicleDTO.getBrand());
         existingVehicle.setColor(vehicleDTO.getColor());
@@ -59,8 +58,8 @@ public class VehicleService {
     }
 
     public void deleteVehicleById(Long id) {
-        vehicleRepository.findById(id)
-                .orElseThrow(() -> new VehicleNotFoundException("Vehicle not found with ID: " + id));
+        vehicleRepository.findVehicleByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NotFoundException("Vehicle not found with ID: " + id));
         vehicleRepository.deleteById(id);
     }
 

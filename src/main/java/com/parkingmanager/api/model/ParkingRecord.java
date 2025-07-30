@@ -2,10 +2,16 @@ package com.parkingmanager.api.model;
 
 import com.parkingmanager.api.enums.ParkingStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ParkingRecord {
 
     @Id
@@ -13,11 +19,9 @@ public class ParkingRecord {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "parking_id")
     private Parking parking;
 
     private LocalDateTime entryAt;
@@ -26,4 +30,6 @@ public class ParkingRecord {
 
     @Enumerated(EnumType.STRING)
     private ParkingStatus status;
+
+    private boolean deleted = false;
 }

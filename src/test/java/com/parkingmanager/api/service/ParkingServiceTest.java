@@ -2,7 +2,6 @@ package com.parkingmanager.api.service;
 
 import com.parkingmanager.api.dto.ParkingDTO;
 import com.parkingmanager.api.exception.ParkingInvalidException;
-import com.parkingmanager.api.exception.ParkingNotFound;
 import com.parkingmanager.api.mapper.ParkingMapper;
 import com.parkingmanager.api.model.Address;
 import com.parkingmanager.api.model.Parking;
@@ -105,13 +104,13 @@ class ParkingServiceTest {
     void findAllParking_shouldReturnListOfParkingDTOs() {
         // ARRANGE
         List<Parking> parkingList = List.of(
-                new Parking(1L, "Parking A", "123", "999999999", 10, 5, new ArrayList<>(), null),
-                new Parking(2L, "Parking B", "456", "888888888", 20, 15, new ArrayList<>(), null)
+                new Parking(1L, "Parking A", "123", "999999999", 10, 5, new Address(), false),
+                new Parking(2L, "Parking B", "456", "888888888", 20, 15, new Address(), false)
         );
 
         List<ParkingDTO> parkingDTOList = List.of(
-                new ParkingDTO(1L, "Parking A", "123", "999999999", 10, 5, new ArrayList<>(), null),
-                new ParkingDTO(2L, "Parking B", "456", "888888888", 20, 15, new ArrayList<>(), null)
+                new ParkingDTO(1L, "Parking A", "123", "999999999", 10, 5, null),
+                new ParkingDTO(2L, "Parking B", "456", "888888888", 20, 15, null)
         );
 
         when(parkingRepository.findAll()).thenReturn(parkingList);
@@ -131,8 +130,8 @@ class ParkingServiceTest {
     void findParkingById_shouldReturnParkingDTO_whenFound() {
         // ARRANGE
         Long id = 1L;
-        Parking parking = new Parking(id, "Parking A", "123", "999999999", 10, 5, new ArrayList<>(), null);
-        ParkingDTO dto = new ParkingDTO(id, "Parking A", "123", "999999999", 10, 5, new ArrayList<>(), null);
+        Parking parking = new Parking(id, "Parking A", "123", "999999999", 10, 5, new Address(), false);
+        ParkingDTO dto = new ParkingDTO(id, "Parking A", "123", "999999999", 10, 5, null);
 
         when(parkingRepository.findById(id)).thenReturn(Optional.of(parking));
         when(parkingMapper.toDTO(parking)).thenReturn(dto);
