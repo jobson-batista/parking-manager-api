@@ -2,7 +2,6 @@ package com.parkingmanager.api.dto;
 
 import com.parkingmanager.api.model.Address;
 import com.parkingmanager.api.model.ParkingRecord;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,8 +27,6 @@ public class ParkingDTO {
     private Integer motorcycleVacancies;
 
     private Integer carVacancies;
-
-    private List<ParkingRecord> records = new ArrayList<>();
 
     private Address address;
 }

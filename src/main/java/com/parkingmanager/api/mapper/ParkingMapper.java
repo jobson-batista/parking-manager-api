@@ -15,5 +15,4 @@ public interface ParkingMapper {
 
     List<ParkingDTO> toDTOList(List<Parking> parkingList);
 
-    List<Parking> toEntityList(List<ParkingDTO> parkingDTOList);
 }

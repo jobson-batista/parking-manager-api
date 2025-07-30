@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -33,10 +30,9 @@ public class Parking {
     @Column(nullable = false)
     private Integer carVacancies;
 
-    @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ParkingRecord> records = new ArrayList<>();
-
     @Embedded
     private Address address;
+
+    private boolean deleted = false;
 
 }

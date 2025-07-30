@@ -3,7 +3,6 @@ package com.parkingmanager.api.controller;
 import com.parkingmanager.api.dto.ParkingDTO;
 import com.parkingmanager.api.model.Stats;
 import com.parkingmanager.api.service.ParkingService;
-import jakarta.servlet.ServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

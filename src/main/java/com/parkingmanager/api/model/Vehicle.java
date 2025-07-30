@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -35,6 +32,6 @@ public class Vehicle {
     @Column(nullable = false)
     private VehicleType type;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ParkingRecord> records = new ArrayList<>();
+    private boolean deleted = false;
+
 }
