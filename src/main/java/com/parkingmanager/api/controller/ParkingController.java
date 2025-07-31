@@ -4,6 +4,7 @@ import com.parkingmanager.api.dto.ParkingDTO;
 import com.parkingmanager.api.model.Stats;
 import com.parkingmanager.api.service.ParkingService;
 import com.parkingmanager.api.service.ReportService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
+@Tag(name = "Parking", description = "Operations related to parking management")
 public class ParkingController {
 
     private final ParkingService parkingService;
