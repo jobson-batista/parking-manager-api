@@ -5,13 +5,12 @@ REST API for managing parking lots with registration of establishments, vehicles
 ## 🔧 Technologies Used
 
 * Java 17
-* Spring Boot
-* Spring Web
 * Spring Data JPA
 * Spring Security (JWT)
 * PostgreSQL
 * Gradle
 * JUnit 5 (testing)
+* Swagger
 
 ## ✅ Features
 
@@ -39,6 +38,9 @@ REST API for managing parking lots with registration of establishments, vehicles
 
   - [ ] Login with JWT
   - [ ] Secured endpoints with token-based authentication
+ 
+* **Documentation**
+  - [x] Swagger API Documentation
 
 ## ▶️ How to Run
 
@@ -51,3 +53,4 @@ cd parking-manager-api
 Access:
 
 * API: `http://localhost:8080/api`
+* Documentation (Swagger): `http://localhost:8080/v1/api/swagger-ui/index.html` 
