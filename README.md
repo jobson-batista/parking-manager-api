@@ -28,12 +28,12 @@ REST API for managing parking lots with registration of establishments, vehicles
 * **Movements**
 
   - [x] Register vehicle entry and exit
-  - [ ] Validate availability of spots based on vehicle type
+  - [x] Validate availability of spots based on vehicle type
 
 * **Reports (coming soon)**
 
   - [x] Total number of entries and exits
-  - [ ] Entries and exits per hour
+  - [x] Entries and exits per hour
 
 * **Authentication**
 
