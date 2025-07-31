@@ -5,40 +5,42 @@ REST API for managing parking lots with registration of establishments, vehicles
 ## 🔧 Technologies Used
 
 * Java 17
-* Spring Boot
-* Spring Web
 * Spring Data JPA
 * Spring Security (JWT)
 * PostgreSQL
 * Gradle
 * JUnit 5 (testing)
+* Swagger
 
 ## ✅ Features
 
 * **Establishments**
 
-  * Create, list, update, and delete
-  * Manage parking spots for motorcycles and cars
+  - [x] Create, list, update, and delete
+  - [x] Manage parking spots for motorcycles and cars
 
 * **Vehicles**
 
-  * Create, list, update, and delete
-  * Register brand, model, color, license plate, and type (car or motorcycle)
+  - [x] Create, list, update, and delete
+  - [x] Register brand, model, color, license plate, and type (car or motorcycle)
 
 * **Movements**
 
-  * Register vehicle entry and exit
-  * Validate availability of spots based on vehicle type
+  - [x] Register vehicle entry and exit
+  - [x] Validate availability of spots based on vehicle type
 
 * **Reports (coming soon)**
 
-  * Total number of entries and exits
-  * Entries and exits per hour
+  - [x] Total number of entries and exits
+  - [x] Entries and exits per hour
 
 * **Authentication**
 
-  * Login with JWT
-  * Secured endpoints with token-based authentication
+  - [ ] Login with JWT
+  - [ ] Secured endpoints with token-based authentication
+ 
+* **Documentation**
+  - [x] Swagger API Documentation
 
 ## ▶️ How to Run
 
@@ -51,3 +53,4 @@ cd parking-manager-api
 Access:
 
 * API: `http://localhost:8080/api`
+* Documentation (Swagger): `http://localhost:8080/v1/api/swagger-ui/index.html` 
