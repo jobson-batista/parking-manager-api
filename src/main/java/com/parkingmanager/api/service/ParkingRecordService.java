@@ -2,6 +2,7 @@ package com.parkingmanager.api.service;
 
 import com.parkingmanager.api.dto.ParkingRecordDTO;
 import com.parkingmanager.api.enums.ParkingStatus;
+import com.parkingmanager.api.enums.VehicleType;
 import com.parkingmanager.api.exception.BadRequestException;
 import com.parkingmanager.api.exception.NotFoundException;
 import com.parkingmanager.api.mapper.ParkingMapper;
@@ -16,7 +17,9 @@ import com.parkingmanager.api.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ParkingRecordService {
@@ -63,6 +66,17 @@ public class ParkingRecordService {
         Vehicle vehicle = vehicleRepository.findVehicleByIdAndDeletedFalse(parkingRecordDTO.getVehicle().getId())
                 .orElseThrow(() -> new NotFoundException(String.format("The vehicle with ID %d does not exist.", parkingRecordDTO.getVehicle().getId())));
 
+        int totalVehicleRegistered = getQuantityVehicleByParkingIdAndVehicleType(parking.getId(), vehicle.getType());
+        int maxVacancies = vehicle.getType().equals(VehicleType.CAR)
+                ? parking.getCarVacancies()
+                : parking.getMotorcycleVacancies();
+        if (totalVehicleRegistered >= maxVacancies) {
+            throw new BadRequestException("There are no vacancies");
+        }
+
+        if(parkingRecordRepository.vehicleIsInTheParking(parking.getId(), vehicle.getId()))
+            throw new BadRequestException("Vehicle is already in the parking");
+
         parkingRecordDTO.setParking(parkingMapper.toDTO(parking));
         parkingRecordDTO.setVehicle(vehicleMapper.toDTO(vehicle));
         parkingRecordDTO.setEntryAt(LocalDateTime.now());
@@ -106,5 +120,9 @@ public class ParkingRecordService {
         } else if(parkingRecordDTO.getParking() == null || parkingRecordDTO.getParking().getId() == null) {
             throw new BadRequestException("The parking field cannot be null");
         }
+    }
+
+    private Integer getQuantityVehicleByParkingIdAndVehicleType(Long parkingId, VehicleType vehicleType) {
+        return parkingRecordRepository.countActiveVehiclesByType(parkingId, vehicleType);
     }
 }
