@@ -13,6 +13,7 @@ import com.parkingmanager.api.repository.ParkingRecordRepository;
 import com.parkingmanager.api.repository.ParkingRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,21 +117,35 @@ public class ParkingService {
     }
 
     public Stats getStatsByParking(Long id) {
-        // TODO: Implement the functionality
-        int entryQuantity = 0;
-        int exitQuantity = 0;
-        Parking parking = new Parking();
+
+        int totalEntryQuantity = 0;
+        int totalExitQuantity = 0;
+        int entryQuantityPerHour = 0;
+        int exitQuantityPerHour = 0;
+
         List<ParkingRecord> records = parkingRecordRepository.findAllByDeletedFalseAndParking_Id(id);
         if (records.isEmpty()) throw new NotFoundException("No registers for this Parking ID: " + id);
-        for(ParkingRecord rec: records) {
-            parking = rec.getParking();
-            if(rec.getEntryAt() != null && rec.getExitAt() == null) {
-                entryQuantity++;
-            } else {
-                exitQuantity++;
+
+        Parking parking = records.get(0).getParking();
+        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
+
+        for (ParkingRecord rec : records) {
+            if (rec.getEntryAt() != null) {
+                totalEntryQuantity++;
+                if (rec.getEntryAt().isAfter(oneHourAgo)) {
+                    entryQuantityPerHour++;
+                }
+            }
+            if (rec.getExitAt() != null) {
+                totalExitQuantity++;
+                if (rec.getExitAt().isAfter(oneHourAgo)) {
+                    exitQuantityPerHour++;
+                }
             }
         }
-        return new Stats(parking.getName(), entryQuantity, exitQuantity);
+
+        return new Stats(parking.getName(), totalEntryQuantity, totalExitQuantity,
+                entryQuantityPerHour, exitQuantityPerHour);
     }
 
     public void validateParkingDTO(ParkingDTO dto) {
