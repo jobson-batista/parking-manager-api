@@ -17,28 +17,28 @@ REST API for managing parking lots with registration of establishments, vehicles
 
 * **Establishments**
 
-  * Create, list, update, and delete
-  * Manage parking spots for motorcycles and cars
+  - [x] Create, list, update, and delete
+  - [x] Manage parking spots for motorcycles and cars
 
 * **Vehicles**
 
-  * Create, list, update, and delete
-  * Register brand, model, color, license plate, and type (car or motorcycle)
+  - [x] Create, list, update, and delete
+  - [x] Register brand, model, color, license plate, and type (car or motorcycle)
 
 * **Movements**
 
-  * Register vehicle entry and exit
-  * Validate availability of spots based on vehicle type
+  - [x] Register vehicle entry and exit
+  - [ ] Validate availability of spots based on vehicle type
 
 * **Reports (coming soon)**
 
-  * Total number of entries and exits
-  * Entries and exits per hour
+  - [x] Total number of entries and exits
+  - [ ] Entries and exits per hour
 
 * **Authentication**
 
-  * Login with JWT
-  * Secured endpoints with token-based authentication
+  - [ ] Login with JWT
+  - [ ] Secured endpoints with token-based authentication
 
 ## ▶️ How to Run
 
