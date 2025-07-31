@@ -52,5 +52,5 @@ cd parking-manager-api
 
 Access:
 
-* API: `http://localhost:8080/api`
+* API: `http://localhost:8080/v1/api`
 * Documentation (Swagger): `http://localhost:8080/v1/api/swagger-ui/index.html` 
