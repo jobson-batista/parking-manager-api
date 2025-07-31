@@ -11,6 +11,7 @@ REST API for managing parking lots with registration of establishments, vehicles
 * Gradle
 * JUnit 5 (testing)
 * Swagger
+* JasperReports
 
 ## ✅ Features
 
