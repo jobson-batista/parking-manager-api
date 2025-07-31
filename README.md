@@ -47,7 +47,7 @@ REST API for managing parking lots with registration of establishments, vehicles
 ```bash
 git clone https://github.com/your-username/parking-manager-api.git
 cd parking-manager-api
-./gradlew spring-boot:run
+./gradlew bootRun
 ```
 
 Access:
