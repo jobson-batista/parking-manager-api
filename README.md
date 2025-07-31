@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="src/main/resources/static/logo-16-9.jpg" height="250">
+</p>
 # 🚗 Parking Manager API
 
 REST API for managing parking lots with registration of establishments, vehicles, and control of vehicle entry and exit.
