@@ -2,6 +2,7 @@ package com.parkingmanager.api.controller;
 
 import com.parkingmanager.api.dto.VehicleDTO;
 import com.parkingmanager.api.service.VehicleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vehicle")
+@Tag(name = "Vehicle", description = "Operations related to vehicle registration and management")
 public class VehicleController {
 
     private final VehicleService vehicleService;

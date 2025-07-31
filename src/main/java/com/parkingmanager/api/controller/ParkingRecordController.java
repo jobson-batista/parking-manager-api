@@ -2,6 +2,7 @@ package com.parkingmanager.api.controller;
 
 import com.parkingmanager.api.dto.ParkingRecordDTO;
 import com.parkingmanager.api.service.ParkingRecordService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking-record")
+@Tag(name = "Parking Records", description = "Endpoints for managing vehicle entry and exit records in parking lots")
 public class ParkingRecordController {
 
     private final ParkingRecordService parkingRecordService;
