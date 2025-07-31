@@ -1,0 +1,56 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="parking_report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c9ea30b-e82f-4893-b59e-cc447d748059">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="subTitle" class="java.lang.String"/>
+	<parameter name="parkingName" class="java.lang.String"/>
+	<parameter name="totalEntry" class="java.lang.Integer"/>
+	<parameter name="entryPerHour" class="java.lang.Integer"/>
+	<parameter name="exitPerHour" class="java.lang.Integer"/>
+	<parameter name="totalExit" class="java.lang.Integer"/>
+	<query language="SQL"><![CDATA[]]></query>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="textField" uuid="e2758bb4-19e6-450b-8119-53e1692b3946" x="-20" y="0" width="564" height="79" fontName="SansSerif" fontSize="22.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["Parking Report " + $P{parkingName}]]></expression>
+		</element>
+	</title>
+	<pageHeader height="51" splitType="Stretch">
+		<element kind="textField" uuid="62042285-a92c-4bf8-b978-a8c1547d95a9" x="0" y="0" width="545" height="51" fontName="SansSerif" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$P{subTitle}]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="61" splitType="Stretch"/>
+	<detail>
+		<band height="141" splitType="Stretch">
+			<element kind="textField" uuid="0976bce1-cd74-4533-89af-35573b438bd2" x="140" y="0" width="140" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["Total Entry"]]></expression>
+			</element>
+			<element kind="textField" uuid="dc36c91a-3ec7-44d2-8109-5ba494712e8c" x="140" y="30" width="140" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["Entry Per Hour"]]></expression>
+			</element>
+			<element kind="textField" uuid="09d6ec0c-281d-4bef-b6ae-03de73713dba" x="140" y="60" width="140" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["Total Exit"]]></expression>
+			</element>
+			<element kind="textField" uuid="b70b66c8-08a3-4cc1-84fc-74faaf449a9b" x="140" y="90" width="140" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["Exit Per Hour"]]></expression>
+			</element>
+			<element kind="textField" uuid="da5654fc-9a24-4cb1-85c9-46ee8b35a2ef" x="280" y="0" width="100" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{totalEntry}]]></expression>
+			</element>
+			<element kind="textField" uuid="3e72bf9e-ce5d-4461-9aab-a71f4fda8c36" x="280" y="90" width="100" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{exitPerHour}]]></expression>
+			</element>
+			<element kind="textField" uuid="9ba744b0-cdd6-436c-851d-3ea3ab46dc9a" x="280" y="30" width="100" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{entryPerHour}]]></expression>
+			</element>
+			<element kind="textField" uuid="c09359c7-b2a2-4521-9241-75176c5993be" x="280" y="60" width="100" height="30" fontName="SansSerif" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{totalExit}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
