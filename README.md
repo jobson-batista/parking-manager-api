@@ -50,7 +50,7 @@ REST API for managing parking lots with registration of establishments, vehicles
 ## ▶️ How to Run
 
 ```bash
-git clone https://github.com/your-username/parking-manager-api.git
+git clone https://github.com/jobson-batista/parking-manager-api.git
 cd parking-manager-api
 ./gradlew bootRun
 ```
